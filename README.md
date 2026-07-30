@@ -1,86 +1,160 @@
-# sprint8-final-project
+# Análisis del comportamiento de clientes — NovaRetail+
 
-# 📊 Análisis de Comportamiento de Clientes - NovaRetail+
+## 📌 Descripción del proyecto
 
-## 🎯 Objetivo del Proyecto
-
-Analizar el comportamiento de los clientes de NovaRetail+, una plataforma de comercio electrónico en Latinoamérica, para responder la pregunta central del equipo de Crecimiento y Retención:
+NovaRetail+ es una plataforma de comercio electrónico en Latinoamérica. En este proyecto analicé información sobre el comportamiento de sus clientes con el objetivo de responder una pregunta principal:
 
 **¿Qué factores del comportamiento del cliente están más fuertemente asociados con el ingreso anual generado?**
 
-Para ello, el análisis busca:
+Para responderla realicé un análisis exploratorio y correlacional utilizando información sobre visitas, compras, inversión en publicidad dirigida, satisfacción, membresía premium, abandono y otras características de los clientes.
 
-- Explorar y limpiar el dataset para garantizar la calidad de los datos
-- Identificar relaciones entre variables numéricas, binarias y categóricas
-- Calcular coeficientes de correlación adecuados según el tipo de variable
-- Generar insights exploratorios que orienten decisiones comerciales
+El objetivo no fue únicamente encontrar correlaciones, sino entender cuáles podían tener mayor relevancia para el negocio y cuáles requerían análisis adicionales antes de tomar decisiones.
 
-> Este proyecto es un análisis **correlacional** (exploratorio).
-> **Correlación ≠ causalidad.**
+> Este proyecto es un análisis correlacional. Las relaciones encontradas no permiten establecer causalidad.
+> Este proyecto fue desarrollado como parte de mi formación en Data Analytics en TripleTen, utilizando un caso de negocio y un dataset proporcionados para fines educativos.
 
----
+## 🎯 Objetivo
 
-## 📁 Dataset Utilizado
+Identificar qué variables del comportamiento de los clientes presentan una mayor asociación con el ingreso anual generado y utilizar estos resultados para detectar posibles oportunidades relacionadas con recurrencia de compra, publicidad y retención.
 
-El proyecto trabaja con una fuente de datos precargada en el entorno de TripleTen:
+## 📊 Datos analizados
 
-**`novaretail_comportamiento_clientes_2024.csv`**: Comportamiento de 15,000 clientes durante 2024
+El dataset contiene **15.000 registros de clientes** y variables relacionadas con:
 
-| Variable | Descripción |
-|---|---|
-| `id_cliente` | Identificador único del cliente |
-| `edad` | Edad del cliente |
-| `nivel_ingreso` | Ingreso anual estimado del cliente |
-| `visitas_mes` | Número de visitas mensuales a la plataforma |
-| `compras_mes` | Número de compras realizadas en el mes |
-| `gasto_publicidad_dirigida` | Gasto en anuncios asignado al usuario |
-| `satisfaccion` | Calificación de satisfacción (escala 1–5) |
-| `miembro_premium` | Suscripción premium: 1 = sí, 0 = no |
-| `abandono` | Abandono de la plataforma: 1 = sí, 0 = no |
-| `tipo_dispositivo` | Dispositivo utilizado (móvil, escritorio, tablet) |
-| `region` | Región geográfica (norte, sur, este, oeste) |
-| `ingreso_anual` | Ingreso anual generado por el cliente (**métrica principal**) |
+* edad;
+* nivel de ingreso;
+* visitas mensuales;
+* compras mensuales;
+* gasto en publicidad dirigida;
+* satisfacción;
+* membresía premium;
+* abandono;
+* tipo de dispositivo;
+* región;
+* ingreso anual generado.
 
----
+La variable principal del análisis fue `ingreso_anual`.
 
-## 🔄 Etapas del Análisis
+## 🛠️ Herramientas utilizadas
 
-### 1. Carga y Exploración Inicial
-- Carga del dataset con `pd.read_csv()`
-- Validación de estructura, tipos de datos y valores faltantes
-- Identificación de variables numéricas, binarias y categóricas
+* Python
+* Pandas
+* NumPy
+* Matplotlib
+* Seaborn
+* SciPy
+* Jupyter Notebook
 
-### 2. Preparación de Datos
-- Corrección de tipos de datos
-- Diagnóstico descriptivo con `.describe()`
-- Documentación de supuestos del análisis
+## 🔎 Análisis realizado
 
-### 3. Visualización de Relaciones
-- Matriz de correlación (heatmap) para variables numéricas
-- Scatterplots para pares con asociaciones relevantes
+El proyecto comenzó con una exploración y validación general de los datos, revisando tipos de variables, valores faltantes, distribuciones y posibles valores extremos.
 
-### 4. Coeficientes de Correlación
-- **Pearson / Spearman** para variables numéricas
-- **Punto-biserial** para variables numéricas vs binarias
-- **V de Cramér** para variables categóricas
+Posteriormente analicé las relaciones entre las diferentes variables utilizando visualizaciones y distintos coeficientes de asociación dependiendo del tipo de dato:
 
-### 5. Interpretación para el Negocio
-- Hallazgos estructurados con evidencia visual y numérica
-- Lenguaje no causal, orientado a asociaciones exploratorias
+* **Pearson** para relaciones lineales entre variables numéricas.
+* **Spearman** para complementar el análisis sin asumir una relación estrictamente lineal.
+* **Correlación punto-biserial** para variables binarias frente a variables numéricas.
+* **V de Cramér** para evaluar asociaciones entre variables categóricas.
 
-### 6. Limitaciones y Próximos Pasos
-- Reconocimiento de los límites del análisis correlacional
-- Propuesta de análisis complementarios
+También utilicé heatmaps y scatterplots para complementar la evidencia numérica con una revisión visual de las relaciones más relevantes.
 
----
+## 📈 Principales hallazgos
 
-## 🚀 Cómo Ejecutar el Notebook
+### Compras mensuales e ingreso anual
 
-Este proyecto está diseñado para ejecutarse en el entorno de **TripleTen JupyterHub**, donde el dataset ya se encuentra precargado en `/datasets/`.
+La relación más fuerte encontrada fue entre `compras_mes` e `ingreso_anual`.
 
-1. Abre el archivo `S8_Student_Version_Project_NovaRetail_(2) (1).ipynb` en el entorno de TripleTen
-2. Ejecuta las celdas secuencialmente
-3. Cada sección está documentada con observaciones e interpretaciones
+* **Pearson:** 0.967
+* **Spearman:** 0.967
+
+Los clientes que realizan más compras mensuales tienden a generar mayores ingresos anuales. La relación observada es muy fuerte y prácticamente lineal.
+
+Desde una perspectiva de negocio, este resultado muestra que la frecuencia de compra es una variable importante para entender el valor generado por los clientes y abre la posibilidad de explorar estrategias enfocadas en aumentar la recurrencia.
+
+### Publicidad dirigida y visitas
+
+También se encontró una asociación positiva moderada entre `gasto_publicidad_dirigida` y `visitas_mes`.
+
+* **Pearson:** 0.579
+* **Spearman:** 0.559
+
+Un mayor gasto en publicidad tiende a estar asociado con un mayor número de visitas, aunque existe una variabilidad considerable entre clientes.
+
+Esto sugiere que aumentar la inversión no necesariamente genera resultados proporcionales para todos los usuarios y que sería necesario analizar con mayor detalle la segmentación y efectividad de las campañas.
+
+### Membresía premium
+
+La relación entre `miembro_premium` e `ingreso_anual` fue positiva pero muy débil:
+
+* **Punto-biserial:** 0.093
+
+Esto indica que, dentro de este análisis, pertenecer al programa premium tiene poca asociación con el ingreso anual generado.
+
+### Abandono
+
+La relación entre `abandono` e `ingreso_anual` fue prácticamente nula:
+
+* **Punto-biserial:** -0.003
+
+Por lo tanto, el ingreso anual por sí solo no parece ser una variable suficiente para entender el abandono de clientes.
+
+## 💡 Implicaciones para el negocio
+
+Los resultados muestran dos líneas de análisis especialmente interesantes.
+
+La primera es la **recurrencia de compra**. La fuerte asociación entre compras mensuales e ingreso anual indica que identificar clientes con potencial para aumentar su frecuencia de compra podría ser relevante para futuras estrategias de retención y crecimiento.
+
+La segunda es la **eficiencia de la publicidad dirigida**. Aunque existe una relación positiva entre inversión publicitaria y visitas, la dispersión observada muestra que algunos clientes generan más tráfico con niveles de inversión similares o incluso menores.
+
+Por esta razón, sería interesante analizar qué segmentos responden mejor a la publicidad antes de aumentar de manera generalizada la inversión.
+
+## ⚠️ Limitaciones
+
+Este análisis es exploratorio y correlacional, por lo que **no permite establecer relaciones causales**.
+
+También se identificaron valores extremos en diferentes variables numéricas que podrían influir en algunos coeficientes de correlación.
+
+Además, las correlaciones analizadas son principalmente bivariadas y no consideran posibles variables adicionales que puedan influir simultáneamente sobre las relaciones observadas.
+
+## 🚀 Próximos pasos
+
+A partir de los resultados del proyecto, algunas líneas de análisis que podrían desarrollarse son:
+
+1. Segmentar clientes según compras mensuales e ingreso anual para identificar perfiles de alto valor.
+2. Analizar con mayor profundidad qué segmentos responden mejor a la publicidad dirigida.
+3. Investigar el abandono utilizando variables como satisfacción y frecuencia de visitas.
+4. Desarrollar modelos que permitan controlar otras variables y estudiar con mayor profundidad los factores asociados al ingreso generado.
+
+## 📁 Estructura del repositorio
+
+```text
+novaretail-customer-behavior-analysis/
+│
+├── README.md
+│
+└── notebooks/
+    ├── README.md
+    └── novaretail_customer_behavior_analysis.ipynb
+```
+
+## 🚀 Habilidades aplicadas
+
+* Limpieza y validación de datos
+* Análisis exploratorio de datos (EDA)
+* Análisis de correlación
+* Pearson y Spearman
+* Correlación punto-biserial
+* V de Cramér
+* Visualización de datos
+* Interpretación de resultados
+* Traducción de resultados estadísticos a implicaciones de negocio
+
+## 👤 Autor
+
+**Santiago Rodríguez Pérez**
+
+Data Analyst | Python | SQL | Power BI
+
 
 ---
 
